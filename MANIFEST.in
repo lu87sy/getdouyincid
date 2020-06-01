@@ -1,0 +1,4 @@
+include douyinparse/schema.sql
+graft douyinparse/static
+graft douyinparse/templates
+global-exclude *.pyc

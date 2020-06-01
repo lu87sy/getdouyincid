@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}信息提取{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        这里输入分享链接：
+        <textarea name="sharetxt" id="" cols="30" rows="10"></textarea>
+        <input class="show-loading" type="submit" value="提交">
+    </form>
+    <div>
+        <a href="{{ url }}" target="_blank"> <button>跳转至视频</button></a><br>
+        <span>视频ID：</span>
+        <input type="text" value="{{ video }}" readonly id="textAreas1"><br>
+        <!-- <button class="vidShareBtn">复制</button><br> -->
+        <span>评论ID：</span>
+        <input type="text" value="{{ comment }}" readonly id="textAreas2">
+        <!-- <button class="cidShareBtn">复制</button> -->
+    </div>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='loading.js') }}"></script>
+    <script>
+        $(function(){
+            $('.show-loading').click(()=>{
+                loading.showLoading({
+                    type:2,
+                    tip:"loading"
+                })
+            })
+        })
+    </script>
+{% endblock %}
