@@ -7,20 +7,22 @@
 {% block content %}
     <form method="post">
         这里输入分享链接：
-        <textarea name="sharetxt" id="" cols="30" rows="10"></textarea>
-        <input class="show-loading" type="submit" value="提交">
+        <textarea name="sharetxt" id="sharetxt" cols="30" rows="10"></textarea>
+        <input class="show-loading" name="action" type="submit" value="老版查询">
+        <input class="show-loading" name="action" type="submit" value="新版查询">
     </form>
     <div>
         <a href="{{ url }}" target="_blank"> <button>跳转至视频</button></a><br>
         <span>视频ID：</span>
-        <input type="text" value="{{ video }}" readonly id="textAreas1"><br>
-        <!-- <button class="vidShareBtn">复制</button><br> -->
+        <input type="text" value="{{ video }}" readonly id="textAreas1">
+        <button class="vidShareBtn">复制</button><br>
         <span>评论ID：</span>
         <input type="text" value="{{ comment }}" readonly id="textAreas2">
-        <!-- <button class="cidShareBtn">复制</button> -->
+        <button class="cidShareBtn">复制</button>
     </div>
     <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='loading.js') }}"></script>
+    <script src="{{ url_for('static', filename='clipboard.min.js') }}"></script>
     <script>
         $(function(){
             $('.show-loading').click(()=>{
@@ -30,5 +32,32 @@
                 })
             })
         })
+    </script>
+    <script>
+        var areas1 = $("#textAreas1").val();
+        var areas2 = $("#textAreas2").val();
+        var clipboard1 = new Clipboard('.vidShareBtn', {
+            text: function() {
+                return areas1;
+            }
+        });
+        clipboard1.on('success', function(e) {
+            alert("复制成功！");
+        });
+        clipboard1.on('error', function(e) {
+            alert("复制失败，请手动复制！");
+        });
+
+        var clipboard2 = new Clipboard('.cidShareBtn', {
+            text: function() {
+                return areas2;
+            }
+        });
+        clipboard2.on('success', function(e) {
+            alert("复制成功！");
+        });
+        clipboard2.on('error', function(e) {
+            alert("复制失败，请手动复制！");
+        });
     </script>
 {% endblock %}

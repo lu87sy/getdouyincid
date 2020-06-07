@@ -1,0 +1,29 @@
+
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>jQuery/Js复制文本到剪贴板</title>
+  <script src="http://apps.bdimg.com/libs/jquery/1.8.3/jquery.js"></script> 
+  <script type="text/javascript" src="http://www.jq22.com/demo/clipboard.js-master201703170013/dist/clipboard.min.js"></script>
+ </head>
+ <body>
+  <div id="demo">http://www.baidu.com</div>
+  <button class="btn">复制</button>
+  <script>
+	var content = $("#demo").html();
+	var clipboard = new Clipboard('.btn', {
+		text: function() {
+			return content;
+		}
+	});
+	clipboard.on('success', function(e) {
+		alert("复制成功");
+	});
+ 
+	clipboard.on('error', function(e) {
+		console.log(e);
+	});
+  </script>
+ </body>
+</html>

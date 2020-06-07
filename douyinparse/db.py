@@ -31,6 +31,19 @@ def init_db_command():
     init_db()
     click.echo('初始化数据库。')
 
+def add_table():
+    db = get_db()
+
+    with current_app.open_resource('add.sql') as f:
+        db.executescript(f.read().decode('utf-8'))
+
+@click.command('add_table')
+@with_appcontext
+def add_table_command():
+    add_table()
+    click.echo('执行成功。')
+
 def init_app(app):
     app.teardown_appcontext(close_db)
     app.cli.add_command(init_db_command)
+    app.cli.add_command(add_table_command)
